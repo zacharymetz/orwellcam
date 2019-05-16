@@ -2,5 +2,9 @@
     min-width: 18rem; 
     margin:0.5rem 0.5rem;
     padding:0.5rem;
-    
+
+}
+.configuration-title{
+    font-weight: 700;
+    font-size:1.15rem;
 }
