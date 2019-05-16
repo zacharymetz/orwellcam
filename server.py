@@ -54,9 +54,15 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         elif self.path == '/bootstrap.css':
             content_type = 'text/css'
             content = self.server.bootstrap_content
+        elif self.path == '/style.css':
+            content_type = 'text/css'
+            content = self.server.style_content
         elif self.path == '/jquery.js':
             content_type = 'application/javascript'
             content = self.server.jquery_content
+        elif self.path == '/script.js':
+            content_type = 'application/javascript'
+            content = self.server.script_content
         elif self.path == '/live':
             content_type = 'text/html; charset=utf-8'
             tpl = Template(self.server.live_stream_template)
@@ -93,6 +99,12 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
                 postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
             else:
                 postvars = {}
+
+            #   here we do the parsing of the header to make changes to the camera's state 
+            if self.path == "/SetResolution":
+                pass 
+            elif self.path == "/SetFramerate":
+                pass 
             pass
 
 
@@ -106,6 +118,10 @@ class StreamingHttpServer(HTTPServer):
             self.bootstrap_content = f.read()
         with io.open('static/jquery.js', 'r') as f:
             self.jquery_content = f.read()
+        with io.open('static/script.js', 'r') as f:
+            self.script_content = f.read()
+        with io.open('static/style.css', 'r') as f:
+            self.style_content = f.read()
         with io.open('templates/livestream.html', 'r') as f:
             self.live_stream_template = f.read()
         with io.open('templates/configuration.html', 'r') as f:
