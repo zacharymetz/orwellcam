@@ -16,21 +16,31 @@
             <h2>Configuration <span style="float:right;font-size:1.25rem;" class="text-muted">cam001</span></h2>
             <div id="location-holder">
                     <ul class="list-group ui-sortable" id="sortable">
-                    <li class="ui-state-default list-group-item            list-group-item-primary ui-sortable-handle" style="position: relative; z-index: 1; left: 0px; top: 0px;">
-                      <div class="location-title">/asdf</div>
-                      Type : <span class="badge badge-secondary" style="text-transform: uppercase;">proxy</span>
-                      
-                        Host: <span class="badge badge-secondary"> http://0.0.0.0/:8080</span>
-                      
-                        
+                    <li class="ui-state-default list-group-item  list-group-item-secondary ui-sortable-handle" style="position: relative; z-index: 1; left: 0px; top: 0px;">
+                      <div class="location-title">Resolution</div>
                           <button class="btn btn-secondary btn-sm" style="float:right;cursor:pointer;" onclick="$('#3308104985-colapse').collapse('toggle')">
                             Options
                           </button>
                         <div class="collapse" id="3308104985-colapse" style="">
                           i am a colapse
+                          <div style="text-align:right;">
+                            <button class="btn btn-success" onclick="updateLocationById(3308104985)">
+                            Save Changes
+                          </button>
+                          <button class="btn btn-danger" onclick="deleteLocation(3308104985)">
+                            Discard
+                          </button>
+                          </div>
                 
-                
-                          
+                        </div>
+                    </li>
+                    <li class="ui-state-default list-group-item  list-group-item-secondary ui-sortable-handle" style="position: relative; z-index: 1; left: 0px; top: 0px;">
+                      <div class="location-title">Color</div>
+                          <button class="btn btn-secondary btn-sm" style="float:right;cursor:pointer;" onclick="$('#3308104985-colapse').collapse('toggle')">
+                            Options
+                          </button>
+                        <div class="collapse" id="3308104985-colapse" style="">
+                          i am a colapse
                           <div style="text-align:right;">
                             <button class="btn btn-success" onclick="updateLocationById(3308104985)">
                             Save Changes
