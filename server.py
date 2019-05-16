@@ -45,15 +45,21 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/index.html')
+            self.send_header('Location', '/live')
             self.end_headers()
             return
         elif self.path == '/jsmpg.js':
             content_type = 'application/javascript'
             content = self.server.jsmpg_content
-        elif self.path == '/index.html':
+        elif self.path == '/live':
             content_type = 'text/html; charset=utf-8'
-            tpl = Template(self.server.index_template)
+            tpl = Template(self.server.live_stream_template)
+            content = tpl.safe_substitute(dict(
+                WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
+                BGCOLOR=BGCOLOR))
+        elif self.path == '/configuration':
+            content_type = 'text/html; charset=utf-8'
+            tpl = Template(self.server.configuration_template)
             content = tpl.safe_substitute(dict(
                 WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
                 BGCOLOR=BGCOLOR))
@@ -78,6 +84,10 @@ class StreamingHttpServer(HTTPServer):
             self.index_template = f.read()
         with io.open('jsmpg.js', 'r') as f:
             self.jsmpg_content = f.read()
+        with io.open('templates/livestream.html', 'r') as f:
+            self.live_stream_template = f.read()
+        with io.open('templates/configuration.html', 'r') as f:
+            self.configuration_template = f.read()
 
 
 class StreamingWebSocket(WebSocket):
