@@ -51,6 +51,12 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         elif self.path == '/jsmpg.js':
             content_type = 'application/javascript'
             content = self.server.jsmpg_content
+        elif self.path == '/bootstrap.css':
+            content_type = 'text/css'
+            content = self.server.bootstrap_content
+        elif self.path == '/jquery.js':
+            content_type = 'application/javascript'
+            content = self.server.jquery_content
         elif self.path == '/live':
             content_type = 'text/html; charset=utf-8'
             tpl = Template(self.server.live_stream_template)
@@ -80,10 +86,12 @@ class StreamingHttpServer(HTTPServer):
     def __init__(self):
         super(StreamingHttpServer, self).__init__(
                 ('', HTTP_PORT), StreamingHttpHandler)
-        with io.open('index.html', 'r') as f:
-            self.index_template = f.read()
-        with io.open('jsmpg.js', 'r') as f:
+        with io.open('static/jsmpg.js', 'r') as f:
             self.jsmpg_content = f.read()
+        with io.open('static/bootstrap.css', 'r') as f:
+            self.bootstrap_content = f.read()
+        with io.open('static/jquery.js', 'r') as f:
+            self.jquery_content = f.read()
         with io.open('templates/livestream.html', 'r') as f:
             self.live_stream_template = f.read()
         with io.open('templates/configuration.html', 'r') as f:
