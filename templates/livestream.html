@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta name="viewport" content="width=${WIDTH}, initial-scale=1"/>
-	<title>jsmpeg streaming</title>
+	<title>Live Steam</title>
 	<style type="text/css">
 		body {
 			background: ${BGCOLOR};
 			text-align: center;
-			margin-top: 10%;
+			margin-top: 2rem;
 		}
 		#videoCanvas {
 			/* Always stretch the canvas to 640x480, regardless of its
@@ -22,6 +22,9 @@
 		change this internal resolution to whatever the source provides. The size the
 		canvas is displayed on the website is dictated by the CSS style.
 	-->
+	<div style="margin:1rem 0;color:white; font-weight: 700; font-size: 1.5rem;">
+		Live Camera Stream	
+	</div>
 	<canvas id="videoCanvas" width="${WIDTH}" height="${HEIGHT}">
 		<p>
 			Please use a browser that supports the Canvas Element, like
