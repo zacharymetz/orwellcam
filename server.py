@@ -81,6 +81,20 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         if self.command == 'GET':
             self.wfile.write(content)
 
+        #   posting of commands will happen here 
+        #   stuff like configuring the router and camera parameters 
+        #   as well as the mqtt messages and starting/ stoping the camera 
+        def do_POST(self):
+            ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+            if ctype == 'multipart/form-data':
+                postvars = cgi.parse_multipart(self.rfile, pdict)
+            elif ctype == 'application/x-www-form-urlencoded':
+                length = int(self.headers.getheader('content-length'))
+                postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
+            else:
+                postvars = {}
+            pass
+
 
 class StreamingHttpServer(HTTPServer):
     def __init__(self):
