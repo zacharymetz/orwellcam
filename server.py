@@ -45,7 +45,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/live')
+            self.send_header('Location', '/dashbaord')
             self.end_headers()
             return
         elif self.path == '/jsmpg.js':
@@ -60,6 +60,12 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         elif self.path == '/jquery.js':
             content_type = 'application/javascript'
             content = self.server.jquery_content
+        elif self.path == '/bootstrap.js':
+            content_type = 'application/javascript'
+            content = self.server.bootstrap_js_content
+        elif self.path == '/popper.js':
+            content_type = 'application/javascript'
+            content = self.server.popper_content
         elif self.path == '/script.js':
             content_type = 'application/javascript'
             content = self.server.script_content
@@ -72,6 +78,12 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         elif self.path == '/configuration':
             content_type = 'text/html; charset=utf-8'
             tpl = Template(self.server.configuration_template)
+            content = tpl.safe_substitute(dict(
+                WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
+                BGCOLOR=BGCOLOR))
+        elif self.path == '/dashboard':
+            content_type = 'text/html; charset=utf-8'
+            tpl = Template(self.server.dashbaord_template)
             content = tpl.safe_substitute(dict(
                 WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
                 BGCOLOR=BGCOLOR))
@@ -105,6 +117,12 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
                 pass 
             elif self.path == "/SetFramerate":
                 pass 
+            elif self.path == "/SetMotionDetectionParams":
+                pass
+            elif self.path == "/SetCredentials":
+                pass
+            elif self.path == "/GetConfigurationInformation":
+                pass
             pass
 
 
@@ -120,10 +138,16 @@ class StreamingHttpServer(HTTPServer):
             self.jquery_content = f.read()
         with io.open('static/script.js', 'r') as f:
             self.script_content = f.read()
+        with io.open('static/popper.js', 'r') as f:
+            self.popper_content = f.read()
+        with io.open('static/bootstrap.js', 'r') as f:
+            self.bootstrap_js_content = f.read()
         with io.open('static/style.css', 'r') as f:
             self.style_content = f.read()
         with io.open('templates/livestream.html', 'r') as f:
             self.live_stream_template = f.read()
+        with io.open('templates/dashboard.html', 'r') as f:
+            self.dashbaord_template = f.read()
         with io.open('templates/configuration.html', 'r') as f:
             self.configuration_template = f.read()
 
