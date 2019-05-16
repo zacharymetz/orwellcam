@@ -12,16 +12,16 @@
   </head>
   <body>
     <div class="container" style="padding-top:1rem;">
-        <h2>Dashboard</h2>
-        <div style="display:flex;">
+        <h2>Dashboard <span style="float:right;">cam001</span></h2>
+        <div style="display:flex;justify-content: space-between;">
           <div>
-            Status : <span>Online</span>
+            Status : <span id="status-indicator">Online</span>
           </div>
           <div>
-            Uptime : <span>45m 32s</span>
+            Uptime : <span id="uptime-counter">45m 32s</span>
           </div>
           <div>
-            Last Detection : <span>3m ago</span>
+            Last Detection : <span id="last-detection-counter">3m ago</span>
           </div>
         </div>
     </div>
